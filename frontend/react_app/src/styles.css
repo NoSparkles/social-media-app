@@ -1,0 +1,111 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+nav{
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 8vh;
+  background-color: white;
+  left: 20px;
+  display: flex;
+  gap: 32px;
+  padding: 20px 0;
+  z-index: 1;
+}
+nav a{
+  color: black;
+}
+
+.logout{
+  height: 20px;
+  width: 60px;
+}
+
+.feed{
+  width: 40vw;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.after-nav{
+  margin-top: 60px;
+}
+
+.post{
+  margin: auto;
+  margin-top: 20px;
+  border-bottom: 1px solid;
+  padding: 12px 20px;
+}
+
+.post h3{
+  margin-top: 4px;
+}
+
+.post img{
+  margin-top: 16px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 90%;
+  max-width: 90%;
+}
+
+
+.friends{
+  position: fixed;
+  right: 4vw;
+  top: 16vh;
+}
+
+.friends-list{
+  margin: 16px 0px;
+}
+
+.friend-box{
+  list-style: none;
+  display: flex;
+  margin: 16px 0px;
+}
+
+.avatar{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 40px;
+}
+
+.friend-box p{
+  margin-left: 8px;
+  position: relative;
+  top: 4px;
+}
+
+.profile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile .profile-pic{
+  margin-top: 8vh;
+  width: 8rem;
+  height: 8rem;
+}
+
+.profile h1{
+  margin-top: 4vh;
+}
+
+.profile > ul{
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+.profile > ul > li {
+  display: flex;
+}
