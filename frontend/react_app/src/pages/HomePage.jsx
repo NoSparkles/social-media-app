@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import Feed from '../components/Feed'
 import FriendsSideBar from '../components/FriendsSideBar'
@@ -10,6 +10,8 @@ import useFetch from '../useFetch'
 
 const HomePage = () => {
   const [userData, setUserData] = useValidate()
+  let [friends, setFriends] = useState(undefined)
+
   let [postsData, postsResponse, postsError, fetchPostsData] = useFetch()
 
   useEffect(() => {
@@ -17,34 +19,32 @@ const HomePage = () => {
   }, [])
 
   useEffect(() => {
-    if (!postsData){
-      return
+    if (userData) {
+      setFriends(userData.friends)
     }
-    if (postsResponse.ok){
-      console.log(postsData)
+    else if(!userData){
+      setFriends(undefined)
     }
-    
-  }, [postsData])
+  }, [userData])
+
   return (
     <>
-      <Navbar userData={userData} setUserData={setUserData}></Navbar>
-
+      <Navbar userData={userData} setUserData={setUserData}/>
       {
         postsData ? (
-          <Feed data={postsData} userData={userData}></Feed>
+          <Feed data={postsData} userData={userData}/>
         ) : (
           <></>
         )
       }
-
+      
       {
-        userData ? (
-          <FriendsSideBar data={userData.friends}></FriendsSideBar> 
+        userData && friends? (
+          <FriendsSideBar friends={friends}/>
         ) : (
-          <FriendsSideBar></FriendsSideBar>
+          <></>
         )
       }
-      
     </>
   )
 }

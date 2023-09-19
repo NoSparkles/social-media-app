@@ -9,7 +9,7 @@ const FriendRequest = ({item, setFriends, setFriendRequests}) => {
     fetchData(`/accept_friend_request/${item.id}/`, "GET", null, true)
   }
   const decline_request = () => {
-
+    fetchData(`/decline_friend_request/${item.id}/`, "GET", null, true)
   }
 
   useEffect(() => {
@@ -19,8 +19,16 @@ const FriendRequest = ({item, setFriends, setFriendRequests}) => {
     if(!response.ok){
       return
     }
-    setFriendRequests((prev) => prev.filter((obj) => obj.id !== item.id));
-    setFriends((prev) => [...prev, {id: item.from_user, username: item.from_user_username}])
+    if (data.message === 'friend request accepted.'){
+      setFriendRequests((prev) => prev.filter((obj) => obj.id !== item.id))
+      setFriends((prev) => [...prev, {id: item.from_user, username: item.from_user_username}])
+      return
+    }
+    if (data.message === 'friend request declined.'){
+      setFriendRequests((prev) => prev.filter((obj) => obj.id !== item.id))
+      return
+    }
+    
   }, [data])
 
   return (

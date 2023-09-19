@@ -1,12 +1,13 @@
 import React from 'react'
 
 import avatar from '../assets/default user.jpg'
+import { Link } from 'react-router-dom'
 
 const FriendBox = ({item}) => {
   return (
-    <li>
+    <li className='friend-box'>
       <img className='avatar' src={avatar} alt="" />
-      <p>{item.username}</p>
+      <Link to={`/profile/${item.id}`}><p>{item.username}</p></Link>
     </li>
   )
 }

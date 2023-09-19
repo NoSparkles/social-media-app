@@ -96,7 +96,7 @@ const useValidate = () => {
         alert('Your session has expired. Please log in again.')
         localStorage.removeItem('access')
         localStorage.removeItem('refresh')
-        setLoggedIn(false)
+        setUserData(null)
         clearInterval(refreshIntervalId)
         refreshIntervalId = null
       }

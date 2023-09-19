@@ -6,6 +6,8 @@ import Feed from '../components/Feed'
 import avatar from '../assets/default user.jpg'
 import useFetch from '../useFetch'
 import useValidate from '../useValidate'
+import FriendBox from '../components/FriendBox'
+import AddPostForm from '../components/AddPostForm'
 
 
 const ProfilePage = () => {
@@ -41,23 +43,32 @@ const ProfilePage = () => {
   return (
     <>
       {
-        postsData && profileData ? (
+        userData !== undefined && postsData && profileData ? (
           <>
             <Navbar userData={userData} setUserData={setUserData}></Navbar>
             <div className='profile after-nav'>
               <img className='profile-pic' src={avatar} alt="" />
               <h1 >@{profileData.username}</h1>
+
               <h4>Friends: </h4>
               <ul className='profile-friends'>
                 {
                   profileData.friends.map((item, i) => (
-                    <li key={i}>
-                      <img className='avatar' src={avatar} alt="" />
-                      <p>{item.username}</p>
-                    </li>
+                    <FriendBox key={i} item={item}/>
                   ))
                 }
               </ul>
+              
+              
+              {
+                userData && userData.username === profileData.username ? (
+                  <AddPostForm/>
+                ) : (
+                  <></>
+                )
+              }
+              
+
               <Feed data={postsData} userData={userData}></Feed>
             </div>
           </>

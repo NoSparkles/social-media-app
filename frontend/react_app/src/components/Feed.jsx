@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+
+import useFetch from '../useFetch'
 
 import Post from './Post'
 
 const Feed = ({data, userData}) => {
-  console.log('from feed', data)
   return (
     <div className="feed">
       {

@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import useValidate from '../useValidate'
+
+import Navbar from '../components/Navbar'
 
 const LoginPage = () => {
   const [userData, setUserData] = useValidate()
@@ -42,13 +45,15 @@ const LoginPage = () => {
           userData ? (
             navigate('/')
           ) : (
-            <div>
-              <form onSubmit={handleSubmit}>
+            <>
+              <Navbar userData={userData} setUserData={setUserData}/>
+              <form className='login-form' onSubmit={handleSubmit}>
+                <h2>Log in to account</h2>
                 <input required type="text" name="username" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/>
                 <input required type="password" name="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <input type="submit" value='Submit'/>
+                <button type="submit">Submit</button>
               </form>
-            </div>
+            </>
           )
         }
       

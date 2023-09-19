@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import defaultPhoto from '../assets/default photo.png'
 
 import useFetch from '../useFetch'
+import { Link } from 'react-router-dom'
 
 const Post = ({item, userData}) => {
   let [likePostData, likePostResponse, likePostError, fetchLikePostData] = useFetch()
@@ -10,7 +11,7 @@ const Post = ({item, userData}) => {
   let [liked, setLiked] = useState(item.liked)
 
   const likePost = () => {
-    fetchLikePostData(`/like_post/${item.id}/`, 'GET', null, true)
+    fetchLikePostData(`/like_unlike_post/${item.id}/`, 'GET', null, true)
   }
   useEffect(() => {
 
@@ -20,20 +21,29 @@ const Post = ({item, userData}) => {
     if(!likePostResponse.ok){
       return
     }
-    setLikes((prev) => prev + 1)
-    setLiked(true)
+    if(likePostData.message === 'post liked successfully.'){
+      setLikes((prev) => prev + 1)
+      setLiked(true)
+      return
+    }
+    if(likePostData.message === 'post unliked successfully.'){
+      setLikes((prev) => prev - 1)
+      setLiked(false)
+      return
+    }
+    
   }, [likePostData])
 
   return (
     <div className="post">
-      <p>@{item.username}</p>
+      <Link to={`/profile/${item.user}`}><p>@{item.username}</p></Link>
       <h3>{item.title}</h3>
       <img src={defaultPhoto} alt="photo" />
       {
         userData ? (
           <>
             <button onClick={likePost}><p>Likes: {likes}</p></button>  
-            <p>{`${liked ? 'Liked' : ''}`}</p>
+            <p >{`${liked ? 'Liked!' : ''}`}</p>
           </>
           
         ) : (

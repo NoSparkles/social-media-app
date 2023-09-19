@@ -7,13 +7,20 @@ import FriendBox from './FriendBox'
 const Friends = ({friends}) => {
   return (
     <>
-      <ul className='profile-friends'>
-        {
-          friends.map((item, i) => (
-            <FriendBox key={i} item={item}></FriendBox>
-          ))
-        }
-      </ul>
+      {
+        friends ? (
+          <ul className='profile-friends'>
+            {
+              friends.map((item, i) => (
+                <FriendBox key={i} item={item}></FriendBox>
+              ))
+            }
+          </ul>
+        ) : (
+          <></>
+        )
+      }
+      
     </>
   )
 }

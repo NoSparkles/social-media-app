@@ -1,29 +1,20 @@
 import React from 'react'
 
-import avatar from '../assets/default user.jpg'
+import FriendBox from './FriendBox'
 
-const Friends = ({data}) => {
+const FriendsSideBar = ({friends}) => {
   return (
     <div className="friends">
       <h1>Friends: </h1>
       <ul className='friends-list'>
-        <li className='friend-box'>
-          <img src={avatar} alt="avatar" className='avatar'/>
-        <p>Bob</p>
-        </li>
-
-        <li className='friend-box'>
-          <img src={avatar} alt="avatar" className='avatar'/>
-          <p>Patrick</p>
-        </li>
-        
-        <li className='friend-box'>
-          <img src={avatar} alt="avatar" className='avatar'/>
-          <p>Sandy</p>
-        </li>
+        {
+          friends.map((item, i) => (
+            <FriendBox key={i} item={item}/>
+          ))
+        }
       </ul>
     </div>
   )
 }
 
-export default Friends
+export default FriendsSideBar
