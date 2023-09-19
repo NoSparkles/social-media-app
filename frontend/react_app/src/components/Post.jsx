@@ -41,13 +41,15 @@ const Post = ({item, userData}) => {
       <img src={defaultPhoto} alt="photo" />
       {
         userData ? (
-          <>
+          <div className='likes'>
             <button onClick={likePost}><p>Likes: {likes}</p></button>  
             <p >{`${liked ? 'Liked!' : ''}`}</p>
-          </>
+          </div>
           
         ) : (
-          <p>Likes: {item.likes}</p>
+          <div className='likes-box'>
+            <p>Likes: {item.likes}</p>
+          </div>
         )
       }
     </div>
