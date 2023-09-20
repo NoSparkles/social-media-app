@@ -45,10 +45,11 @@ class PostSerializer(ModelSerializer):
     fields = [
       'id',
       'title',
+      'image',
       'user',
       'username',
       'likes',
-      'liked'
+      'liked',
     ]
 
   def get_likes(self, obj):

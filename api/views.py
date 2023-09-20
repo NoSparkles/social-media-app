@@ -10,7 +10,7 @@ from .mixins import AuthenticationRequiredMixin
 def index(request, *args, **kwargs):
     return Response({'Message': 'This is default API page'})
 
-class PostListCreateAPIView(ListCreateAPIView, AuthenticationRequiredMixin):
+class PostListCreateAPIView(ListCreateAPIView):
     queryset = models.Post.objects.all().order_by('-created')
     serializer_class = serializers.PostSerializer
 
@@ -28,7 +28,7 @@ class UserPostsListAPIView(ListAPIView):
         posts = models.Post.objects.filter(user=user).order_by('-created')
         return posts
 
-class UserListCreateAPIView(ListCreateAPIView, AuthenticationRequiredMixin):
+class UserListCreateAPIView(AuthenticationRequiredMixin, ListCreateAPIView):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
@@ -36,7 +36,7 @@ class UserRetrieveDestroyView(RetrieveDestroyAPIView):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
-class Get_user(GenericAPIView, AuthenticationRequiredMixin):
+class Get_user(AuthenticationRequiredMixin, GenericAPIView):
     serializer_class = serializers.UserSerializer
 
     def get_queryset(self):
@@ -49,7 +49,7 @@ class Get_user(GenericAPIView, AuthenticationRequiredMixin):
         print(serializer.data)
         return Response(serializer.data)
     
-class Like_Unlike_post(APIView, AuthenticationRequiredMixin):
+class Like_Unlike_post(AuthenticationRequiredMixin, APIView):
     def get(self, request, post_id):
         try:
             post = models.Post.objects.get(id=post_id)
@@ -69,13 +69,13 @@ class Like_Unlike_post(APIView, AuthenticationRequiredMixin):
             
             return Response({"message": 'post liked successfully.'}, status=status.HTTP_200_OK)
     
-class Friend_request_To_UserRetriveAPIView(ListAPIView, AuthenticationRequiredMixin):
+class Friend_request_To_UserRetriveAPIView(AuthenticationRequiredMixin, ListAPIView):
     serializer_class = serializers.Friend_RequestSerializer
 
     def get_queryset(self):
         return models.Friend_request.objects.filter(to_user=self.request.user)
     
-class Accept_friend_request(APIView, AuthenticationRequiredMixin):
+class Accept_friend_request(AuthenticationRequiredMixin, APIView):
     def get(self, request, *args, **kwargs):
         friend_request = models.Friend_request.objects.get(id=kwargs['request_id'])
         if friend_request.to_user == request.user:
@@ -86,7 +86,7 @@ class Accept_friend_request(APIView, AuthenticationRequiredMixin):
         else:
             return Response({'message': 'friend request not accepted.'})
         
-class Decline_friend_request(APIView, AuthenticationRequiredMixin):
+class Decline_friend_request(AuthenticationRequiredMixin, APIView):
     def get(self, request, *args, **kwargs):
         friend_request = models.Friend_request.objects.get(id=kwargs['request_id'])
         if friend_request.to_user == request.user:
@@ -95,7 +95,7 @@ class Decline_friend_request(APIView, AuthenticationRequiredMixin):
         else:
             return Response({'message': 'friend request not declined.'})
         
-class Send_friend_request(APIView, AuthenticationRequiredMixin):
+class Send_friend_request(AuthenticationRequiredMixin, APIView):
     def get(self, request, *args, **kwargs):
         try:
             to_user = models.User.objects.get(username=kwargs['username'])

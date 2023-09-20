@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
-import defaultPhoto from '../assets/default photo.png'
-
 import useFetch from '../useFetch'
 import { Link } from 'react-router-dom'
+
+import defaultPostImage from '../assets/default photo.png'
 
 const Post = ({item, userData}) => {
   let [likePostData, likePostResponse, likePostError, fetchLikePostData] = useFetch()
@@ -38,7 +38,7 @@ const Post = ({item, userData}) => {
     <div className="post">
       <Link to={`/profile/${item.user}`}><p>@{item.username}</p></Link>
       <h3>{item.title}</h3>
-      <img src={defaultPhoto} alt="photo" />
+      <img src={item.image || defaultPostImage} alt="photo" />
       {
         userData ? (
           <div className='likes'>

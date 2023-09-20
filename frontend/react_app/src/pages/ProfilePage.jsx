@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Feed from '../components/Feed'
@@ -15,6 +15,7 @@ const ProfilePage = () => {
   let [userData, setUserData] = useValidate()
   let [profileData, profileResponse, profileError, fetchProfileData] = useFetch()
   let [postsData, postsResponse, postsError, fetchPostsData] = useFetch()
+  let [posts, setPosts] = useState(undefined)
 
   useEffect(() => {
     fetchProfileData(`/users/${params.id}/`)
@@ -32,9 +33,14 @@ const ProfilePage = () => {
     if (!profileData){
       return
     }
-    if (profileResponse.ok){
-      console.log(profileData)
+    if (!profileResponse.ok){
+      return
     }
+
+    if (postsData){
+      setPosts(postsData)
+    }
+
     
   }, [postsData, profileData])
 
@@ -43,7 +49,7 @@ const ProfilePage = () => {
   return (
     <>
       {
-        userData !== undefined && postsData && profileData ? (
+        userData !== undefined && posts && profileData ? (
           <>
             <Navbar userData={userData} setUserData={setUserData}></Navbar>
             <div className='profile after-nav'>
@@ -62,14 +68,14 @@ const ProfilePage = () => {
               
               {
                 userData && userData.username === profileData.username ? (
-                  <AddPostForm/>
+                  <AddPostForm setPosts={setPosts}/>
                 ) : (
                   <></>
                 )
               }
               
 
-              <Feed data={postsData} userData={userData}></Feed>
+              <Feed posts={posts} userData={userData}></Feed>
             </div>
           </>
         ) : (

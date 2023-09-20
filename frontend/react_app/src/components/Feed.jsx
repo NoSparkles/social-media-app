@@ -1,17 +1,17 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import useFetch from '../useFetch'
 
 import Post from './Post'
 
-const Feed = ({data, userData}) => {
+const Feed = ({posts, userData}) => {
   return (
     <div className="feed">
       {
-        data ? (
+        posts ? (
           <>
             {
-              data.map((item, i) => (
+              posts.map((item, i) => (
                 <Post userData={userData} item={item} key={i}></Post>
               ))
             }

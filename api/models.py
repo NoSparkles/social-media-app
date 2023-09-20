@@ -14,6 +14,7 @@ class Post(models.Model):
     title = models.CharField(default='No title', max_length=200, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     likes = models.ManyToManyField('User', related_name='liked_posts', blank=True)
+    image = models.ImageField(upload_to='posts_images/', null=True, blank=True)
 
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)

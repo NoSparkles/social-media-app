@@ -11,6 +11,7 @@ import useFetch from '../useFetch'
 const HomePage = () => {
   const [userData, setUserData] = useValidate()
   let [friends, setFriends] = useState(undefined)
+  let [posts, setPosts] = useState(undefined)
 
   let [postsData, postsResponse, postsError, fetchPostsData] = useFetch()
 
@@ -27,12 +28,18 @@ const HomePage = () => {
     }
   }, [userData])
 
+  useEffect(() => {
+    if(postsData){
+      setPosts(postsData)
+    }
+  }, [postsData])
+
   return (
     <>
       <Navbar userData={userData} setUserData={setUserData}/>
       {
-        postsData ? (
-          <Feed data={postsData} userData={userData}/>
+        posts ? (
+          <Feed posts={posts} userData={userData}/>
         ) : (
           <></>
         )
