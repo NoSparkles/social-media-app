@@ -7,7 +7,7 @@ const FriendBox = ({item}) => {
   return (
     <li className='friend-box'>
       <img className='avatar' src={avatar} alt="" />
-      <Link to={`/profile/${item.id}`}><p>{item.username}</p></Link>
+      <Link to={`/profile/${item.id}/`}><p>{item.username}</p></Link>
     </li>
   )
 }

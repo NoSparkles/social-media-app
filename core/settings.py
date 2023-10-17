@@ -21,7 +21,7 @@ SECRET_KEY = 'django-insecure-%bz5hseal%%^xx(t(18z4iux#b-j2&x03eqrf31rki#&+oaqt!
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://localhost:5173/', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'api',
 
     'rest_framework',
-     'rest_framework_simplejwt',
+    'rest_framework_simplejwt',
     'corsheaders',
 ]
 

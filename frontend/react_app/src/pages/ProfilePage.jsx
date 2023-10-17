@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Feed from '../components/Feed'
 
@@ -7,20 +7,21 @@ import avatar from '../assets/default user.jpg'
 import useFetch from '../useFetch'
 import useValidate from '../useValidate'
 import FriendBox from '../components/FriendBox'
-import AddPostForm from '../components/AddPostForm'
-
 
 const ProfilePage = () => {
   let params = useParams()
+  let navigate = useNavigate()
   let [userData, setUserData] = useValidate()
   let [profileData, profileResponse, profileError, fetchProfileData] = useFetch()
   let [postsData, postsResponse, postsError, fetchPostsData] = useFetch()
   let [posts, setPosts] = useState(undefined)
-
+  let [showMessageButton, setShowMessageButton] = useState(false)
   useEffect(() => {
-    fetchProfileData(`/users/${params.id}/`)
-    fetchPostsData(`/users/${params.id}/posts/`, 'GET', null, true)
-  }, [])
+    if (userData !== undefined){
+      fetchProfileData(`/users/${params.id}/`)
+      fetchPostsData(`/users/${params.id}/posts/`, 'GET', null)
+    }
+  }, [userData, params])
 
   useEffect(() => {
     if (!postsData){
@@ -37,11 +38,20 @@ const ProfilePage = () => {
       return
     }
 
+    if (profileData && userData) {
+      profileData.friends.map((item, i) => {
+        if (item.username === userData.username) {
+          setShowMessageButton(true)
+        }
+      })
+    }
+    else {
+      setShowMessageButton(false)
+    }
+
     if (postsData){
       setPosts(postsData)
     }
-
-    
   }, [postsData, profileData])
 
   
@@ -65,16 +75,14 @@ const ProfilePage = () => {
                 }
               </ul>
               
-              
               {
-                userData && userData.username === profileData.username ? (
-                  <AddPostForm setPosts={setPosts}/>
+                showMessageButton ? (
+                    <button onClick={() => navigate(`/chat?friend=${profileData.username}`)}>Message</button>
                 ) : (
                   <></>
                 )
               }
-              
-
+      
               <Feed posts={posts} userData={userData}></Feed>
             </div>
           </>

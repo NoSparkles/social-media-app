@@ -18,7 +18,7 @@ const AddFriendForm = () => {
     if(username.length === 0){
       return
     }
-    fetchData(`/send_friend_request/${username}/`, 'GET', null, true)
+    fetchData(`/send_friend_request/${username}/`, 'GET', null)
     setUsername('')
   }
   return (

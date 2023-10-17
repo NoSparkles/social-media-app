@@ -5,7 +5,7 @@ import FriendRequest from './FriendRequest'
 const FriendRequests = ({userData, friendRequests, setFriendRequests, setFriends}) => {
   const [data, response, error, fetchData] = useFetch()
   useEffect(() => {
-    fetchData(`/friend_requests/${userData.username}/`, 'GET', null, true)
+    fetchData(`/friend_requests/${userData.username}/`, 'GET', null)
   }, [])
   useEffect(() => {
     if (!data){

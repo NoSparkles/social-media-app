@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage'
 import ProfilePage from './pages/ProfilePage'
 import FriendsPage from './pages/FriendsPage'
 import NotFoundPage from './pages/NotFoundPage'
+import ChatPage from './pages/ChatPage'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='register/' Component={RegisterPage}/>
           <Route path='friends/' Component={FriendsPage}/>
           <Route path='profile/:id/' Component={ProfilePage}/>
+          <Route path='chat/' Component={ChatPage}/>
           <Route path='*' Component={NotFoundPage}/>
         </Routes>
       </BrowserRouter>

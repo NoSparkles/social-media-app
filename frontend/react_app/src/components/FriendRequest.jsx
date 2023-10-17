@@ -6,10 +6,10 @@ import useFetch from '../useFetch'
 const FriendRequest = ({item, setFriends, setFriendRequests}) => {
   const [data, response, error, fetchData] = useFetch()
   const accept_request = () => {
-    fetchData(`/accept_friend_request/${item.id}/`, "GET", null, true)
+    fetchData(`/accept_friend_request/${item.id}/`, "GET", null)
   }
   const decline_request = () => {
-    fetchData(`/decline_friend_request/${item.id}/`, "GET", null, true)
+    fetchData(`/decline_friend_request/${item.id}/`, "GET", null)
   }
 
   useEffect(() => {

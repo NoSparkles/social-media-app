@@ -11,7 +11,7 @@ const Post = ({item, userData}) => {
   let [liked, setLiked] = useState(item.liked)
 
   const likePost = () => {
-    fetchLikePostData(`/like_unlike_post/${item.id}/`, 'GET', null, true)
+    fetchLikePostData(`/like_unlike_post/${item.id}/`, 'GET', null)
   }
   useEffect(() => {
 

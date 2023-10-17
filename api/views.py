@@ -6,19 +6,22 @@ from rest_framework import status
 from . import models, serializers
 from .mixins import AuthenticationRequiredMixin
  
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def index(request, *args, **kwargs):
-    return Response({'Message': 'This is default API page'})
+    print(request.data)
+    return Response({'image': request.data.get('image')})
 
 class PostListCreateAPIView(ListCreateAPIView):
     queryset = models.Post.objects.all().order_by('-created')
     serializer_class = serializers.PostSerializer
 
     def perform_create(self, serializer):
+        print(self.request.body)
         user = self.request.user
         if user:
             serializer.save(user=user)
         serializer.save()
+
 
 class UserPostsListAPIView(ListAPIView):
     serializer_class = serializers.PostSerializer

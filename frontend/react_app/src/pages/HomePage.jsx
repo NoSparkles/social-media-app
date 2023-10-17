@@ -16,8 +16,9 @@ const HomePage = () => {
   let [postsData, postsResponse, postsError, fetchPostsData] = useFetch()
 
   useEffect(() => {
-    fetchPostsData(`/posts/`, 'GET', null, true)
-  }, [])
+    if (userData !== undefined)
+    fetchPostsData(`/posts/`, 'GET', null)
+  }, [userData])
 
   useEffect(() => {
     if (userData) {

@@ -1,19 +1,12 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 
-// to get rid of LoginRequired
-// to get rid of LoginRequired
-// to get rid of LoginRequired
-// to get rid of LoginRequired
-
-
-
 const useFetch = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [response, setResponse] = useState(null);
 
-  const fetchData = (endpoint = '/', method = 'GET', body = null, LoginRequired = false) => {
+  const fetchData = (endpoint = '/', method = 'GET', body = null) => {
     const baseEndpoint = 'http://localhost:8000/api'
     let options = {
       method: method,
@@ -26,7 +19,7 @@ const useFetch = () => {
     if (body){
       options['body'] = JSON.stringify(body)
     }
-    if (LoginRequired === true){
+    if (localStorage.getItem('access') !== null){
       let token = localStorage.getItem('access')
       if (token){
         options.headers['Authorization'] = `Token ${token}`

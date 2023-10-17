@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // in order to logout use setUserData(null) (only null works)
 // if userData === undefined -> haven't retrieved user's data yet
@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 const useValidate = () => {
   const [loggedIn, setLoggedIn] = useState(undefined)
   const [userData, setUserData] = useState(undefined)
-  let refreshIntervalId = null
+  const [refreshIntervalId, setRefreshIntervalId] = useState(null)
 
   useEffect(() => {
     validateToken()
@@ -18,8 +18,10 @@ const useValidate = () => {
       localStorage.removeItem('access')
       localStorage.removeItem('refresh')
       clearInterval(refreshIntervalId)
-      refreshIntervalId = null
-      setUserData(0)
+      setRefreshIntervalId(null)
+      if (userData !== null){
+        setUserData(0)
+      }
     }
     else if (loggedIn === true) {
       let endpoint = 'http://localhost:8000/api/get_user/'
@@ -69,7 +71,8 @@ const useValidate = () => {
       }
       else{
         setLoggedIn(true)
-        refreshIntervalId = setInterval(refreshToken, 1800000)
+        let refreshEverySeconds = 1800000
+        setRefreshIntervalId(setInterval(refreshToken, refreshEverySeconds))
       }
     })
   }
@@ -93,12 +96,12 @@ const useValidate = () => {
     .catch(err=>console.log(err))
     .then(data=>{
       if (data.code === 'token_not_valid'){
-        alert('Your session has expired. Please log in again.')
         localStorage.removeItem('access')
         localStorage.removeItem('refresh')
+        setLoggedIn(false)
         setUserData(null)
         clearInterval(refreshIntervalId)
-        refreshIntervalId = null
+        setRefreshIntervalId(null)
       }
       else{
         localStorage.setItem('access', data.access)
