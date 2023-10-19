@@ -28,7 +28,7 @@ const ProfilePage = () => {
       return
     }
     if (postsResponse.ok){
-      console.log(postsData)
+
     }
 
     if (!profileData){
@@ -43,12 +43,16 @@ const ProfilePage = () => {
         if (item.username === userData.username) {
           setShowMessageButton(true)
         }
+        else {
+          setShowMessageButton(false)
+        }
       })
     }
     else {
       setShowMessageButton(false)
     }
 
+    console.log(profileData)
     if (postsData){
       setPosts(postsData)
     }

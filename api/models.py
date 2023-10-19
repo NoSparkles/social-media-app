@@ -37,3 +37,15 @@ class Friend_request(models.Model):
     @property
     def to_user_username(self):
         return self.to_user.username
+
+class Room(models.Model):
+    users = models.ManyToManyField('User', related_name='rooms')
+
+    @property
+    def get_messages(self):
+        return self.messages_in_room.all()
+
+class Message(models.Model):
+    body = models.CharField(max_length=1000, null=True, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages', null=True)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='messages_in_room', null=True)

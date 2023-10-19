@@ -1,7 +1,8 @@
 from rest_framework.decorators import api_view, APIView
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView, ListAPIView, RetrieveDestroyAPIView, GenericAPIView
+from rest_framework.generics import ListCreateAPIView, ListAPIView, RetrieveDestroyAPIView, CreateAPIView, UpdateAPIView, GenericAPIView
 from rest_framework import status
+from rest_framework.serializers import ValidationError
 
 from . import models, serializers
 from .mixins import AuthenticationRequiredMixin
@@ -11,12 +12,12 @@ def index(request, *args, **kwargs):
     print(request.data)
     return Response({'image': request.data.get('image')})
 
+
 class PostListCreateAPIView(ListCreateAPIView):
     queryset = models.Post.objects.all().order_by('-created')
     serializer_class = serializers.PostSerializer
 
     def perform_create(self, serializer):
-        print(self.request.body)
         user = self.request.user
         if user:
             serializer.save(user=user)
@@ -31,13 +32,16 @@ class UserPostsListAPIView(ListAPIView):
         posts = models.Post.objects.filter(user=user).order_by('-created')
         return posts
 
-class UserListCreateAPIView(AuthenticationRequiredMixin, ListCreateAPIView):
+
+class UserListCreateAPIView(ListCreateAPIView):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
+
 
 class UserRetrieveDestroyView(RetrieveDestroyAPIView):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
+
 
 class Get_user(AuthenticationRequiredMixin, GenericAPIView):
     serializer_class = serializers.UserSerializer
@@ -52,6 +56,7 @@ class Get_user(AuthenticationRequiredMixin, GenericAPIView):
         print(serializer.data)
         return Response(serializer.data)
     
+
 class Like_Unlike_post(AuthenticationRequiredMixin, APIView):
     def get(self, request, post_id):
         try:
@@ -72,12 +77,14 @@ class Like_Unlike_post(AuthenticationRequiredMixin, APIView):
             
             return Response({"message": 'post liked successfully.'}, status=status.HTTP_200_OK)
     
+
 class Friend_request_To_UserRetriveAPIView(AuthenticationRequiredMixin, ListAPIView):
     serializer_class = serializers.Friend_RequestSerializer
 
     def get_queryset(self):
         return models.Friend_request.objects.filter(to_user=self.request.user)
     
+
 class Accept_friend_request(AuthenticationRequiredMixin, APIView):
     def get(self, request, *args, **kwargs):
         friend_request = models.Friend_request.objects.get(id=kwargs['request_id'])
@@ -88,7 +95,8 @@ class Accept_friend_request(AuthenticationRequiredMixin, APIView):
             return Response({'message': 'friend request accepted.'})
         else:
             return Response({'message': 'friend request not accepted.'})
-        
+
+
 class Decline_friend_request(AuthenticationRequiredMixin, APIView):
     def get(self, request, *args, **kwargs):
         friend_request = models.Friend_request.objects.get(id=kwargs['request_id'])
@@ -97,7 +105,8 @@ class Decline_friend_request(AuthenticationRequiredMixin, APIView):
             return Response({'message': 'friend request declined.'})
         else:
             return Response({'message': 'friend request not declined.'})
-        
+
+
 class Send_friend_request(AuthenticationRequiredMixin, APIView):
     def get(self, request, *args, **kwargs):
         try:
@@ -114,3 +123,42 @@ class Send_friend_request(AuthenticationRequiredMixin, APIView):
             return Response({'message': 'friend request sent.'}, status=status.HTTP_201_CREATED)
         else: 
             return Response({'message': 'friend request was already sent.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class RoomListCreateView(ListCreateAPIView):
+    queryset = models.Room.objects.all()
+    serializer_class = serializers.RoomSerializer
+
+    def perform_create(self, serializer):
+        user = models.User.objects.filter(pk=self.request.user.id).first()
+        friend = models.User.objects.filter(username=self.request.POST.get("friend")).first()
+
+        if friend and user in friend.friends.all():
+            room = models.Room.objects.create()
+            room.users.add(user)
+            room.users.add(friend)
+            room.save()
+            return room
+        
+        raise ValidationError({'error': 'Friend is not found or not in your friends list.'})
+    
+        
+class RoomRetrieveDestroyView(RetrieveDestroyAPIView):
+    queryset = models.Room.objects.all()
+    serializer_class = serializers.RoomSerializer
+
+
+class MessageListCreateView(AuthenticationRequiredMixin, ListCreateAPIView):
+    queryset = models.Message.objects.all()
+    serializer_class = serializers.MessageSerializer
+
+    def perform_create(self, serializer):
+        user = models.User.objects.filter(pk=self.request.user.id).first()
+        serializer.save(user=user)
+        return super().perform_create(serializer)
+    
+
+class MessageUpdateView(UpdateAPIView):
+    queryset = models.Message.objects.all()
+    serializer_class = serializers.MessageUpdateSerializer
+    

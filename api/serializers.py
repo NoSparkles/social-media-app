@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 
 from . import models
 
+
 class UserSerializer(ModelSerializer):
   friends = serializers.SerializerMethodField()
   password = serializers.CharField(write_only=True, min_length=8)
@@ -28,6 +29,7 @@ class UserSerializer(ModelSerializer):
     data = UserUsernameSerializer(friends, many=True).data
     return data
   
+
 class UserUsernameSerializer(ModelSerializer):
   class Meta: 
       model = models.User
@@ -35,6 +37,7 @@ class UserUsernameSerializer(ModelSerializer):
         'id',
         'username',
       ]
+
 
 class PostSerializer(ModelSerializer):
   user = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -58,6 +61,7 @@ class PostSerializer(ModelSerializer):
   def get_liked(self, obj):
      return self.context['request'].user in obj.likes.all()
   
+
 class Friend_RequestSerializer(ModelSerializer):
   class Meta:
      model = models.Friend_request
@@ -68,4 +72,36 @@ class Friend_RequestSerializer(ModelSerializer):
         'to_user',
         'to_user_username',
      ]
-     
+
+
+class MessageSerializer(ModelSerializer):
+  user = serializers.PrimaryKeyRelatedField(read_only=True)
+  username = serializers.SerializerMethodField(read_only=True)
+  class Meta:
+    model = models.Message
+    fields = [
+        'id',
+        'user',
+        'username',
+        'room',
+        'body',
+    ]
+
+  def get_username(self, obj):
+      return obj.user.username
+  
+class MessageUpdateSerializer(MessageSerializer):
+  room = serializers.PrimaryKeyRelatedField(read_only=True)
+
+class RoomSerializer(serializers.ModelSerializer):
+  users = UserUsernameSerializer(many=True, read_only=True)
+  messages = MessageSerializer(source='get_messages', many=True, read_only=True)
+  friend = serializers.CharField(write_only=True)
+  class Meta:
+      model = models.Room
+      fields = [
+          'id',
+          'users',
+          'messages',
+          'friend',
+      ]
