@@ -9,8 +9,7 @@ from .mixins import AuthenticationRequiredMixin
  
 @api_view(['GET', 'POST'])
 def index(request, *args, **kwargs):
-    print(request.data)
-    return Response({'image': request.data.get('image')})
+    return Response({"hello": "world"})
 
 
 class PostListCreateAPIView(ListCreateAPIView):
@@ -53,7 +52,6 @@ class Get_user(AuthenticationRequiredMixin, GenericAPIView):
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         serializer = self.serializer_class(queryset[0], many=False)
-        print(serializer.data)
         return Response(serializer.data)
     
 
@@ -131,14 +129,19 @@ class RoomListCreateView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         user = models.User.objects.filter(pk=self.request.user.id).first()
-        friend = models.User.objects.filter(username=self.request.POST.get("friend")).first()
+
+        friend = models.User.objects.filter(username=self.request.data.get("friend")).first()
 
         if friend and user in friend.friends.all():
-            room = models.Room.objects.create()
-            room.users.add(user)
-            room.users.add(friend)
-            room.save()
-            return room
+            room = models.Room.objects.filter(users=user).filter(users=friend).first()
+
+            if not room:
+                room = models.Room.objects.create()
+                room.users.add(user)
+                room.users.add(friend)
+
+            serializer.instance = room
+            return serializer.save()
         
         raise ValidationError({'error': 'Friend is not found or not in your friends list.'})
     
