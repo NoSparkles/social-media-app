@@ -24,10 +24,11 @@ urlpatterns = [
     path('send_friend_request/<str:username>/', views.Send_friend_request.as_view()),
     path('accept_friend_request/<int:request_id>/', views.Accept_friend_request.as_view()),
     path('decline_friend_request/<int:request_id>/', views.Decline_friend_request.as_view()),
+    path('remove_friend/<int:pk>/', views.RemoveFriend.as_view()),
 
     path('rooms/', views.RoomListCreateView.as_view()),
     path('rooms/<int:pk>/', views.RoomRetrieveDestroyView.as_view()),
 
     path('messages/', views.MessageListCreateView.as_view()),
-    path('messages/<int:pk>/update/', views.MessageUpdateView.as_view()),
+    path('messages/<int:pk>/', views.MessageRetrieveUpdateDestroyView.as_view()),
 ]

@@ -19,9 +19,7 @@ const useValidate = () => {
       localStorage.removeItem('refresh')
       clearInterval(refreshIntervalId)
       setRefreshIntervalId(null)
-      if (userData !== null){
-        setUserData(0)
-      }
+      setUserData(0)
     }
     else if (loggedIn === true) {
       let endpoint = 'http://localhost:8000/api/get_user/'

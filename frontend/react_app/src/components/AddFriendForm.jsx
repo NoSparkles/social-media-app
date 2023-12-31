@@ -5,7 +5,6 @@ const AddFriendForm = () => {
   const [username, setUsername] = useState('')
   const [addFriendMessage, setAddFriendMessage] = useState(undefined)
   const [data, response, error, fetchData] = useFetch()
-  console.log(username)
   useEffect(() => {
     if(!data){
       return

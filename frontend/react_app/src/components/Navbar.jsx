@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const Navbar = ({userData, setUserData}) => {
   return (
@@ -13,7 +13,9 @@ const Navbar = ({userData, setUserData}) => {
               <Link to="/friends/">Friends</Link>
               <Link to={`/profile/${userData.id}/`}>Profile</Link>
               <p>{userData.username}</p>
-              <button onClick={() => {setUserData(null)}} className='logout'>Log ut</button>
+              <button onClick={() => {
+                setUserData(null)
+              }} className='logout'>Log ut</button>
             </>
             
           ) : (

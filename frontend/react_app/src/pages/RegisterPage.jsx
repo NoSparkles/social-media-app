@@ -31,7 +31,6 @@ const RegisterPage = () => {
     fetch(endpoint, options)
     .then(response=>response.json())
     .then(data=>{
-      console.log(data)
       if (data.username === username){
         getToken()
       }

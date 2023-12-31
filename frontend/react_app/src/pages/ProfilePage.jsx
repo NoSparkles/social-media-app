@@ -52,7 +52,6 @@ const ProfilePage = () => {
       setShowMessageButton(false)
     }
 
-    console.log(profileData)
     if (postsData){
       setPosts(postsData)
     }

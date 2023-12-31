@@ -23,28 +23,42 @@ class ChatConsumer(WebsocketConsumer):
     
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        print(text_data_json)
+
         message = text_data_json['message']
         username = text_data_json['username']
+        action = text_data_json['action']
+        message_id = text_data_json.get('id')
 
-        message_body = message
-        user = get_user_model().objects.get(username=username)
-        room = models.Room.objects.filter(pk=int(self.room_group_name)).first()
-        message = models.Message.objects.create(body=message_body, user=user, room=room)
-        message.save()
+        if action != 'delete':
+            message_body = message
+            user = get_user_model().objects.get(username=username)
+            room = models.Room.objects.filter(pk=int(self.room_group_name)).first()
+            message = models.Message.objects.filter(body=message_body, user=user, room=room).first()
+            message.save()
 
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': serializers.MessageSerializer(message, many=False).data
-            }
-        )
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type': 'chat_message',
+                    'message': serializers.MessageSerializer(message, many=False).data,
+                    'action': action
+                }
+            )
+        else:
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type': 'chat_message',
+                    'message': message_id,
+                    'action': action
+                }
+            )
 
     def chat_message(self, event):
         message = event['message']
+        action = event['action']
 
         self.send(text_data=json.dumps({
-            'type': 'chat',
-            'message': message
+            'type': action,
+            'message': message,
         }))

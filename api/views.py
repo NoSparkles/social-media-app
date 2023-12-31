@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view, APIView
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView, ListAPIView, RetrieveDestroyAPIView, CreateAPIView, UpdateAPIView, GenericAPIView
+from rest_framework.generics import ListCreateAPIView, ListAPIView, RetrieveDestroyAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
 from rest_framework import status
 from rest_framework.serializers import ValidationError
 
@@ -122,6 +122,19 @@ class Send_friend_request(AuthenticationRequiredMixin, APIView):
         else: 
             return Response({'message': 'friend request was already sent.'}, status=status.HTTP_400_BAD_REQUEST)
         
+class RemoveFriend(AuthenticationRequiredMixin, APIView):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        friend = models.User.objects.filter(pk=kwargs.get('pk')).first()
+        if friend:
+            friend.friends.remove(user)
+            user.friends.remove(friend)
+
+            friend.save()
+            user.save()
+            return Response({'message': "Friend was removed."})
+        return Response({'message': 'Bad request.'}, status=status.HTTP_400_BAD_REQUEST)
+        
 
 class RoomListCreateView(ListCreateAPIView):
     queryset = models.Room.objects.all()
@@ -161,7 +174,7 @@ class MessageListCreateView(AuthenticationRequiredMixin, ListCreateAPIView):
         return super().perform_create(serializer)
     
 
-class MessageUpdateView(UpdateAPIView):
+class MessageRetrieveUpdateDestroyView(AuthenticationRequiredMixin, RetrieveUpdateDestroyAPIView):
     queryset = models.Message.objects.all()
     serializer_class = serializers.MessageUpdateSerializer
     

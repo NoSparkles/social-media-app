@@ -35,7 +35,7 @@ const FriendsPage = () => {
               <FriendRequests userData={userData} friendRequests={friendRequests} setFriendRequests={setFriendRequests} setFriends={setFriends}/>
 
               <h4>Friends:</h4>
-              <Friends friends={friends}/>
+              <Friends userData={userData} friends={friends} setFriends={setFriends}/>
             </div>
           </>
         ) : (

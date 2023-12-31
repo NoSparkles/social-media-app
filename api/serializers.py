@@ -73,7 +73,6 @@ class Friend_RequestSerializer(ModelSerializer):
         'to_user_username',
      ]
 
-
 class MessageSerializer(ModelSerializer):
   user = serializers.PrimaryKeyRelatedField(read_only=True)
   username = serializers.SerializerMethodField(read_only=True)

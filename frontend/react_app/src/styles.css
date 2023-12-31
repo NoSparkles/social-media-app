@@ -74,6 +74,11 @@ nav a{
   list-style: none;
   display: flex;
   margin: 16px 0px;
+  flex-direction: column;
+}
+
+.friend-box .friend-box-image{
+  display: flex;
 }
 
 .avatar{
@@ -236,21 +241,55 @@ nav a{
   font-size: 1.2em;
   margin-top: 16px;
   width: 300px;
+  min-width: 50px;
+  max-width: 80%;
+}
+
+.message .message-header{
+  height: 40px;
+  display: flex;
 }
 
 .message .name {
   font-size: 1.2em;
   font-weight: 800;
+  display: inline;
 }
 
-.message .body {
+.message .edit-button{
+  margin-left: 4px;
+  height: 32px;
+  width: 60px;
+}
+
+.message .delete-button{
+  margin-left: 4px;
+  height: 32px;
+  width: 60px;
+}
+
+.message .message-body {
+  width: 100%;
   font-size: 1em;
   border: 1px solid;
   padding: 4px 8px;
+  margin-top: 4px;
+  resize: none;
+  white-space: pre-wrap;
+  overflow-y: visible;
+}
+
+.message textarea.message-body {
+  min-height: 200px;
+
 }
 
 .message-right{
   align-self: flex-end;
+}
+
+.message-right .message-header{
+  justify-content: flex-end;
 }
 
 .message-right h1{
@@ -259,4 +298,11 @@ nav a{
 
 .message-left{
   align-self: flex-start;
+}
+
+button {
+  border: 1px solid black;
+}
+button:hover {
+  border: 2px solid black;
 }

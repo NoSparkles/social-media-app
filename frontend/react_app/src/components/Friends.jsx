@@ -4,7 +4,7 @@ import FriendBox from './FriendBox'
 
 // update friends properly
 
-const Friends = ({friends}) => {
+const Friends = ({userData, friends, setFriends}) => {
   return (
     <>
       {
@@ -12,7 +12,7 @@ const Friends = ({friends}) => {
           <ul className='profile-friends'>
             {
               friends.map((item, i) => (
-                <FriendBox key={i} item={item}></FriendBox>
+                <FriendBox userData={userData} key={i} item={item} setFriends={setFriends}></FriendBox>
               ))
             }
           </ul>
