@@ -31,11 +31,11 @@ const FriendsPage = () => {
             <div className='after-nav'>
               <AddFriendForm/>
 
-              <h4>Friend requests:</h4>
-              <FriendRequests userData={userData} friendRequests={friendRequests} setFriendRequests={setFriendRequests} setFriends={setFriends}/>
-
-              <h4>Friends:</h4>
+              <h4 className='friends-label'>Friends:</h4>
               <Friends userData={userData} friends={friends} setFriends={setFriends}/>
+
+              <h4 className='friend-requests-label'>Friend requests:</h4>
+              <FriendRequests userData={userData} friendRequests={friendRequests} setFriendRequests={setFriendRequests} setFriends={setFriends}/>
             </div>
           </>
         ) : (

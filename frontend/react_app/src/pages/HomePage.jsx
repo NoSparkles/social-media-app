@@ -38,6 +38,7 @@ const HomePage = () => {
   return (
     <>
       <Navbar userData={userData} setUserData={setUserData}/>
+      
       {
         posts ? (
           <Feed posts={posts} userData={userData}/>
@@ -45,7 +46,7 @@ const HomePage = () => {
           <></>
         )
       }
-      
+
       {
         userData && friends? (
           <FriendsSideBar friends={friends}/>

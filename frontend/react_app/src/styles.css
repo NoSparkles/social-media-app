@@ -9,27 +9,62 @@ nav{
   position: fixed;
   top: 0px;
   width: 100%;
-  height: 6vh;
+  height: 48px;
   background-color: white;
-  left: 20px;
+  border: 1px solid #ccc;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 32px;
-  padding: 20px 0;
+  padding-left: 32px;
   z-index: 1;
 }
+
 nav a{
   color: black;
 }
 
+.nav-right {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 32px;
+  padding-right: 32px;
+}
+
+.log-sign-in {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  margin-top: 8px;
+  gap: 4px;
+}
+.log-sign-in-link {
+  color: black;
+
+}
+
 .logout{
   height: 20px;
-  width: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #6A8EAE;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  padding: 12px 16px;
+  transition-duration: 0.2s;
+}
+
+.logout:hover {
+  background-color: #226199;
 }
 
 .feed{
   width: 40vw;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 10vh;
 }
 
 .after-nav{
@@ -39,8 +74,9 @@ nav a{
 .post{
   margin: auto;
   margin-top: 20px;
-  border-bottom: 1px solid;
+  border-radius: 8px;
   padding: 12px 20px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .post h3{
@@ -56,8 +92,22 @@ nav a{
   max-width: 90%;
 }
 
-.post .likes-box{
-  display: block;
+.post .likes-box button {
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: 20px;
+  font-size: 1em;
+  padding: 4px 8px;
+}
+
+.post .likes-box button:hover {
+  background-color: #ccc;
+}
+
+
+.post .likes-box button p{
+  margin-left: 4px;
+  display: inline;
 }
 
 .friends{
@@ -75,22 +125,39 @@ nav a{
   display: flex;
   margin: 16px 0px;
   flex-direction: column;
+  width: fit-content;
+  max-width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 12px;
+  padding: 12px 16px;
 }
 
 .friend-box .friend-box-image{
   display: flex;
+  justify-content: start;
+}
+.friend-box-image {
+  display: flex;
+}
+
+.friend-box-image a{
+  margin-left: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+}
+
+.friend-box-buttons {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
 }
 
 .avatar{
   width: 2rem;
   height: 2rem;
   border-radius: 40px;
-}
-
-.friend-box p{
-  margin-left: 8px;
-  position: relative;
-  top: 4px;
 }
 
 .profile{
@@ -155,12 +222,26 @@ nav a{
   padding: 4px 8px;
   font-size: 1rem;
   margin-top: 16px;
+  background-color: #6A8EAE;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1em;
+  padding: 4px 8px;
+  transition-duration: 0.2s;
 }
 
-.error {
-  align-self: center;
-  margin-top: 16px;
+
+.register-form button:hover {
+  background-color: #226199;
+}
+
+.error-color {
   color: red;
+}
+
+.success-color {
+  color: rgb(0, 170, 0);
 }
 
 .login-form{
@@ -200,6 +281,161 @@ nav a{
   padding: 4px 8px;
   font-size: 1rem;
   margin-top: 16px;
+  background-color: #6A8EAE;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1em;
+  padding: 4px 8px;
+  transition-duration: 0.2s;
+}
+
+.login-form button:hover {
+  background-color: #226199;
+}
+
+.profile-friends {
+  display: flex;
+  gap: 4vw;
+  margin: 0 5vw;
+}
+
+.add-friend-form {
+  height: 40px;
+  width: 300px;
+  margin: auto;
+  display: flex;
+  border-radius: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.add-friend-form input {
+  border: none;
+  outline: none;
+  flex: 4;
+  padding: 4px 16px;
+  font-size: 1em;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.add-friend-form button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #6A8EAE;
+  color: white;
+  flex: 1;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  transition-duration: 0.2s;
+}
+
+.add-friend-form button svg {
+  height: 24px;
+}
+
+.add-friend-form button:hover {
+  background-color: #226199;
+}
+
+.add-friend-message {
+  margin: auto;
+  margin-top: 12px;
+  width: fit-content;
+}
+
+.friends-label {
+  margin: 12px 20px;
+  font-size: 1.5em;
+}
+
+.friend-requests-label {
+  margin: 12px 20px;
+  font-size: 1.5em;
+}
+
+.message-link {
+  background-color: #6A8EAE;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1em;
+  padding: 4px 8px;
+  transition-duration: 0.2s;
+}
+
+.message-link:hover {
+  background-color: #226199;
+}
+
+.remove-friend {
+  margin-left: 4px;
+  border: 1px solid white;
+  border-radius: 20px;
+  font-size: 1em;
+  padding: 4px 8px;
+  transition-duration: 0.2s;
+  color: white;
+  background-color: rgb(255, 0, 0);
+}
+
+.remove-friend:hover {
+  background-color: white;
+  border-color: rgb(255, 0, 0);
+  color: rgb(255, 0, 0)
+}
+
+.friend-requests {
+  display: flex;
+  gap: 4vw;
+  margin: 0 5vw;
+}
+
+.friend-requests li {
+  list-style: none;
+  display: flex;
+  margin: 16px 0px;
+  flex-direction: column;
+  width: fit-content;
+  max-width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.accept-friend {
+  background-color: #55d671;
+  color: white;
+  border: 1px solid white;
+  border-radius: 20px;
+  font-size: 1em;
+  padding: 4px 8px;
+  transition-duration: 0.2s;
+}
+
+.accept-friend:hover {
+  border: 1px solid #55d671;
+  color: #55d671;
+  background-color: white;
+}
+
+.decline-friend {
+  border: 1px solid white;
+  margin-left: 4px;
+  background-color: #ce4242;
+  color: white;
+  border-radius: 20px;
+  font-size: 1em;
+  padding: 4px 8px;
+  transition-duration: 0.2s;
+}
+
+.decline-friend:hover{
+  border: 1px solid #ce4242;
+  color: #ce4242;
+  background-color: white;
 }
 
 #messages{
@@ -298,11 +534,4 @@ nav a{
 
 .message-left{
   align-self: flex-start;
-}
-
-button {
-  border: 1px solid black;
-}
-button:hover {
-  border: 2px solid black;
 }

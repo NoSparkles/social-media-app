@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useValidate from '../useValidate'
 import Navbar from '../components/Navbar'
+import { Link } from 'react-router-dom'
 
 const RegisterPage = () => {
   const [userData, setUserData] = useValidate()
@@ -83,6 +84,11 @@ const RegisterPage = () => {
                   <></>
                 )
               }
+
+              <div className='log-sign-in'>
+                <p>Already have an acount?</p>
+                <Link className='log-sign-in-link' to="/login/">Log in</Link>
+              </div>
 
               <button type="submit">Submit</button>
 

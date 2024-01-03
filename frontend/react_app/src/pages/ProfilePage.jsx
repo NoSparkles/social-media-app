@@ -27,9 +27,6 @@ const ProfilePage = () => {
     if (!postsData){
       return
     }
-    if (postsResponse.ok){
-
-    }
 
     if (!profileData){
       return
@@ -69,6 +66,14 @@ const ProfilePage = () => {
               <img className='profile-pic' src={avatar} alt="" />
               <h1 >@{profileData.username}</h1>
 
+              {
+                showMessageButton ? (
+                    <button className='message-link' onClick={() => navigate(`/chat?friend=${profileData.username}`)}>Chat with a friend</button>
+                ) : (
+                  <></>
+                )
+              }
+
               <h4>Friends: </h4>
               <ul className='profile-friends'>
                 {
@@ -77,14 +82,6 @@ const ProfilePage = () => {
                   ))
                 }
               </ul>
-              
-              {
-                showMessageButton ? (
-                    <button onClick={() => navigate(`/chat?friend=${profileData.username}`)}>Message</button>
-                ) : (
-                  <></>
-                )
-              }
       
               <Feed posts={posts} userData={userData}></Feed>
             </div>

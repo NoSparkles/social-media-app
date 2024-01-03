@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import useFetch from '../useFetch'
 
 const AddFriendForm = () => {
@@ -22,13 +24,13 @@ const AddFriendForm = () => {
   }
   return (
     <>
-      <form onSubmit={addFriend}>
+      <form className='add-friend-form' onSubmit={addFriend}>
         <input type="text" placeholder="Friend's username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-        <button>Add Friend</button>
+        <button><FontAwesomeIcon icon={faPlus} /></button>
       </form>
       {
         addFriendMessage ? (
-          <p className='message'>{addFriendMessage}</p>
+          <p className={`add-friend-message ${!response.ok ? 'error-color' : 'success-color'}`}>{addFriendMessage}</p>
         ) : (
           <></>
         )

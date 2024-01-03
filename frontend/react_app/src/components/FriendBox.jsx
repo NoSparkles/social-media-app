@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import avatar from '../assets/default user.jpg'
 import { Link, useNavigate } from 'react-router-dom'
 import useFetch from '../useFetch'
@@ -32,7 +31,7 @@ const FriendBox = ({userData, item, setFriends}) => {
       {
         userData?.friends?.includes(item) ? (
           <div className='friend-box-buttons'>
-            <button className='friend-box-message' onClick={() => navigate(`/chat?friend=${item.username}`)}>Message</button>
+            <button className='message-link' onClick={() => navigate(`/chat?friend=${item.username}`)}>Chat with a friend</button>
             <button className="remove-friend" onClick={handleUnfriend}>Unfriend</button>
           </div>
         ) : (

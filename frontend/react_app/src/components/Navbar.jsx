@@ -1,31 +1,34 @@
 import React from 'react'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHouse, faUserGroup, faHouseUser, faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import {Link, useNavigate} from 'react-router-dom'
 
 const Navbar = ({userData, setUserData}) => {
   return (
     userData !== undefined ? (
       <nav>
-        <Link to="/">Home</Link>
+        <div className='nav-left'>
+        <Link to="/"><FontAwesomeIcon icon={faHouse}/></Link>
+        </div>
+        <div className='nav-right'>
         {
           userData ? (
             <>
-              <Link to="/friends/">Friends</Link>
-              <Link to={`/profile/${userData.id}/`}>Profile</Link>
-              <p>{userData.username}</p>
+              <Link to="/friends/"><FontAwesomeIcon icon={faUserGroup} /></Link>
+            <Link to={`/profile/${userData.id}/`}><FontAwesomeIcon icon={faHouseUser} /></Link>
+              <p>Logged in as @<b>{userData.username}</b></p>
               <button onClick={() => {
                 setUserData(null)
-              }} className='logout'>Log ut</button>
+              }} className='logout'><FontAwesomeIcon icon={faRightFromBracket} /></button>
             </>
             
           ) : (
             <>
-              <Link to="/login/">Log in</Link>
-              <Link to="/register/">Sign in</Link>
+              <Link to="/login/"><FontAwesomeIcon icon={faRightToBracket} /></Link>
             </>
           )
         }
-        
+        </div>
       </nav>
     ) : (
       <></>

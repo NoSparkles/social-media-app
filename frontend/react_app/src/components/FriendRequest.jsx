@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react'
-
+import { Link } from 'react-router-dom'
 
 import useFetch from '../useFetch'
+
+import avatar from '../assets/default user.jpg'
 
 const FriendRequest = ({item, setFriends, setFriendRequests}) => {
   const [data, response, error, fetchData] = useFetch()
@@ -30,12 +32,17 @@ const FriendRequest = ({item, setFriends, setFriendRequests}) => {
     }
     
   }, [data])
-
   return (
     <li>
-      <p>{item.from_user_username}</p>
-      <button onClick={accept_request}>Accept</button>
-      <button onClick={decline_request}>Decline</button>
+      <div className='friend-box-image'>
+        <img className='avatar' src={avatar} alt="" />
+        <Link to={`/profile/${item.from_user}/`}><p>{item.from_user_username}</p></Link>
+      </div>
+      <div className='friend-box-buttons'>
+        <button className='accept-friend' onClick={accept_request}>Accept</button>
+        <button className='decline-friend' onClick={decline_request}>Decline</button>
+      </div>
+      
     </li>
   )
 }
