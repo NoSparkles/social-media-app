@@ -54,8 +54,6 @@ const ProfilePage = () => {
     }
   }, [postsData, profileData])
 
-  
-
   return (
     <>
       {
@@ -75,13 +73,19 @@ const ProfilePage = () => {
               }
 
               <h4>Friends: </h4>
-              <ul className='profile-friends'>
+              {
+                profileData.friends?.length ? (
+                  <ul className='profile-friends'>
                 {
                   profileData.friends.map((item, i) => (
                     <FriendBox key={i} item={item}/>
                   ))
                 }
               </ul>
+                ) : (
+                  <></>
+                )
+              }
       
               <Feed posts={posts} userData={userData}></Feed>
             </div>

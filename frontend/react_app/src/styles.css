@@ -65,6 +65,7 @@ nav a{
   width: 40vw;
   margin: auto;
   margin-top: 10vh;
+  margin-bottom: 20px;
 }
 
 .after-nav{
@@ -110,6 +111,28 @@ nav a{
   display: inline;
 }
 
+.friends-and-requests {
+  margin-top: 4vh;
+  display: flex;
+  justify-content: center;
+  gap: 10vw;
+}
+
+.friends-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friends-container ul {
+  overflow-y: scroll;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 20px;
+}
+
 .friends{
   position: fixed;
   right: 4vw;
@@ -117,13 +140,17 @@ nav a{
 }
 
 .friends-list{
-  margin: 16px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 50vh;
+  overflow-y: scroll;
+  padding: 20px 20px;
 }
 
 .friend-box{
   list-style: none;
   display: flex;
-  margin: 16px 0px;
   flex-direction: column;
   width: fit-content;
   max-width: 300px;
@@ -295,9 +322,9 @@ nav a{
 }
 
 .profile-friends {
-  display: flex;
-  gap: 4vw;
-  margin: 0 5vw;
+  overflow-x: scroll;
+  padding: 20px 20px;
+  max-width: 80vw;
 }
 
 .add-friend-form {
@@ -338,6 +365,11 @@ nav a{
 
 .add-friend-form button:hover {
   background-color: #226199;
+}
+
+.firends-container {
+  display: flex;
+  width: 40%;
 }
 
 .add-friend-message {
@@ -385,12 +417,6 @@ nav a{
   background-color: white;
   border-color: rgb(255, 0, 0);
   color: rgb(255, 0, 0)
-}
-
-.friend-requests {
-  display: flex;
-  gap: 4vw;
-  margin: 0 5vw;
 }
 
 .friend-requests li {

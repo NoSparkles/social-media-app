@@ -115,6 +115,9 @@ class Send_friend_request(AuthenticationRequiredMixin, APIView):
         from_user = request.user
         if from_user == to_user:
             return Response({'message': 'can not send friend request to yourself.'}, status=status.HTTP_400_BAD_REQUEST)
+    
+        if from_user.friends.filter(id=to_user.id).exists():
+            return Response({'message': 'user is already your friend.'}, status=status.HTTP_400_BAD_REQUEST)
         
         friend_request, created = models.Friend_request.objects.get_or_create(to_user=to_user, from_user=from_user)
         if created:

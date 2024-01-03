@@ -23,7 +23,6 @@ const FriendRequest = ({item, setFriends, setFriendRequests}) => {
     }
     if (data.message === 'friend request accepted.'){
       setFriendRequests((prev) => prev.filter((obj) => obj.id !== item.id))
-      setFriends((prev) => [...prev, {id: item.from_user, username: item.from_user_username}])
       return
     }
     if (data.message === 'friend request declined.'){

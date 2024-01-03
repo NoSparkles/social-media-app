@@ -9,7 +9,7 @@ const Friends = ({userData, friends, setFriends}) => {
     <>
       {
         friends ? (
-          <ul className='profile-friends'>
+          <ul className='friends-vertical'>
             {
               friends.map((item, i) => (
                 <FriendBox userData={userData} key={i} item={item} setFriends={setFriends}></FriendBox>
