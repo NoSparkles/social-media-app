@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import useFetch from '../useFetch'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare, faTrash, faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
+
 const ChatMessage = ({userData, item, socket, messages}) => {
   let [editing, setEditing] = useState(false)
   let [body, setBody] = useState(item.body)
@@ -48,22 +51,32 @@ const ChatMessage = ({userData, item, socket, messages}) => {
   return (
     <div className={`message ${item.username == userData.username? 'message-right' : 'message-left'}`}>
       <div className='message-header'>
-        <h1 className='name'>{item.username}</h1>
         {
           item.username == userData.username ? 
           <>
-            <button onClick={() => setEditing(true)} className='edit-button'>edit</button>
-            <button onClick={handleDelete} className='delete-button'>delete</button>
+            <div>
+              {
+                editing ? (
+                  <>
+                    <button className='save-button' onClick={saveMessage}><FontAwesomeIcon icon={faFloppyDisk} /></button>
+                  </>
+                ) : (
+                  <></>
+                )
+              }
+               <button onClick={() => setEditing(true)} className='edit-button'><FontAwesomeIcon icon={faPenToSquare} /></button>
+              <button onClick={handleDelete} className='delete-button'><FontAwesomeIcon icon={faTrash} /></button>
+            </div>
           </> : 
           <>
           </>
         }
+        <h1 className='name'>{item.username}</h1>
       </div>
       {
         editing ? (
           <>
             <textarea className='message-body' value={body} onChange={(e) => setBody(e.target.value)}></textarea>
-            <button onClick={saveMessage}>save</button>
           </>
         ) : (
           <p className='message-body'>{body}</p>

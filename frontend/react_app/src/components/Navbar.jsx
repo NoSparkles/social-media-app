@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faUserGroup, faHouseUser, faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faUserGroup, faHouseUser, faRightFromBracket, faRightToBracket, faPlus } from '@fortawesome/free-solid-svg-icons'
 import {Link, useNavigate} from 'react-router-dom'
 
 const Navbar = ({userData, setUserData}) => {
@@ -14,8 +14,9 @@ const Navbar = ({userData, setUserData}) => {
         {
           userData ? (
             <>
+              <Link to="/create-post/" className='create-post-button'>Create post</Link>
               <Link to="/friends/"><FontAwesomeIcon icon={faUserGroup} /></Link>
-            <Link to={`/profile/${userData.id}/`}><FontAwesomeIcon icon={faHouseUser} /></Link>
+              <Link to={`/profile/${userData.id}/`}><FontAwesomeIcon icon={faHouseUser} /></Link>
               <p>Logged in as @<b>{userData.username}</b></p>
               <button onClick={() => {
                 setUserData(null)

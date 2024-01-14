@@ -22,6 +22,7 @@ nav{
 
 nav a{
   color: black;
+  text-decoration: none;
 }
 
 .nav-right {
@@ -30,6 +31,22 @@ nav a{
   align-items: center;
   gap: 32px;
   padding-right: 32px;
+}
+
+nav .create-post-button {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 12px;
+  align-items: center;
+  color: white;
+  background-color: #6A8EAE;
+  padding: 4px 12px;
+  border-radius: 4px;
+  transition-duration: 0.2s;
+}
+
+nav .create-post-button:hover {
+  background-color: #226199;
 }
 
 .log-sign-in {
@@ -51,9 +68,9 @@ nav a{
   background-color: #6A8EAE;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 1em;
-  padding: 12px 16px;
+  padding: 12px 12px;
   transition-duration: 0.2s;
 }
 
@@ -70,6 +87,36 @@ nav a{
 
 .after-nav{
   margin-top: 60px;
+}
+
+.post-editor {
+  margin: auto;
+  margin-top: 16vh;
+  width: 60vw;
+  border-radius: 8px;
+  padding: 20px 32px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-editor textarea{
+  resize: none;
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 8px 12px; 
+  border-radius: 4px;
+ 
+  height: 100px;
+  font-size: 1.2em;
+}
+
+.post-editor img{
+  width: 90%;
+  max-width: 90%;
+  max-height: 80%;
+  align-self: center;
 }
 
 .post{
@@ -264,6 +311,8 @@ nav a{
 }
 
 .error-color {
+  margin: 4px auto;
+
   color: red;
 }
 
@@ -469,37 +518,58 @@ nav a{
   width: 60%;
   height: 60vh;
   margin: auto;
-  margin-top: 12vh;
+  margin-top: 16vh;
   overflow-y: scroll;
   word-wrap: break-word;
   display: flex;
   flex-direction: column;
   padding: 20px 40px;
-  border: 1px solid;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   margin-bottom: 20px;
 }
 
 .messageform{
   width: 60%;
   margin: auto;
-  border: 1px solid;
-  padding: 12px 16px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  border-radius: 100px;
   display: flex;
   align-items: center;
+  height: 40px;
 }
 
 .messageform input{
-  width: 80%;
-  height: 32px;
-  padding: 4px 8px;
+  flex: 6;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 4px 12px;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
 }
 
 .messageform button{
-  width: 20%;
-  height: 32px;
+  flex: 1;
+  height: 100%;
+  border: none;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  background-color: #6A8EAE;
+  color: white;
+  font-size: 1em;
+  padding: 4px 8px;
+  transition-duration: 0.2s;
+}
+
+.messageform button:hover {
+  background-color: #226199;
 }
 
 .message{
+  background-color: #99b7d1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 8px 12px;
+  border-radius: 12px;
   font-size: 1.2em;
   margin-top: 16px;
   width: 300px;
@@ -510,6 +580,7 @@ nav a{
 .message .message-header{
   height: 40px;
   display: flex;
+  gap: 12px;
 }
 
 .message .name {
@@ -518,22 +589,52 @@ nav a{
   display: inline;
 }
 
+.message .message-header{
+  display: flex;
+  align-items: center;
+}
 .message .edit-button{
-  margin-left: 4px;
+  border: none;
   height: 32px;
-  width: 60px;
+  width: 32px;
+  background-color: transparent;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.message .edit-button:hover {
+  color: white;
 }
 
 .message .delete-button{
-  margin-left: 4px;
+  border: none;
   height: 32px;
-  width: 60px;
+  width: 32px;
+  background-color: transparent;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.message .delete-button:hover {
+  color: red;
+}
+
+.message .save-button{
+  border: none;
+  height: 32px;
+  width: 32px;
+  background-color: transparent;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.message .save-button:hover {
+  color: white;
 }
 
 .message .message-body {
   width: 100%;
   font-size: 1em;
-  border: 1px solid;
   padding: 4px 8px;
   margin-top: 4px;
   resize: none;
@@ -541,9 +642,16 @@ nav a{
   overflow-y: visible;
 }
 
-.message textarea.message-body {
-  min-height: 200px;
+.message .message-header svg {
+  height: 16px;
+  width: 16px;
+}
 
+.message textarea.message-body {
+  
+  outline: none;
+  min-height: 200px;
+  background-color: transparent;
 }
 
 .message-right{
@@ -560,4 +668,8 @@ nav a{
 
 .message-left{
   align-self: flex-start;
+}
+
+button {
+  cursor: pointer;
 }

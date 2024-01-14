@@ -6,6 +6,7 @@ import ProfilePage from './pages/ProfilePage'
 import FriendsPage from './pages/FriendsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ChatPage from './pages/ChatPage'
+import CreatePostPage from './pages/CreatePostPage'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='register/' Component={RegisterPage}/>
           <Route path='friends/' Component={FriendsPage}/>
           <Route path='profile/:id/' Component={ProfilePage}/>
+          <Route path='create-post/' Component={CreatePostPage}/>
           <Route path='chat/' Component={ChatPage}/>
           <Route path='*' Component={NotFoundPage}/>
         </Routes>

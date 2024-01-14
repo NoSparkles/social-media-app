@@ -1,41 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import useValidate from '../useValidate'
 
 import Navbar from '../components/Navbar'
+import useFetch from '../useFetch'
 
 const LoginPage = () => {
   const [userData, setUserData] = useValidate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [data, response, error, fetchData] = useFetch()
+  const [loginError, setLoginError] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!data) {
+      return
+    }
+    if (response.status === 401) {
+      setLoginError(data.detail)
+    }
+    if (response.ok) {
+      localStorage.setItem('access', data.access)
+      localStorage.setItem('refresh', data.refresh)
+      navigate('/')
+    }
+
+  }, [data])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    getToken()
-  }
-
-  const getToken = () => {
-    let endpoint = 'http://localhost:8000/api/token/'
-    let options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-      })
-    }
-    fetch(endpoint, options)
-    .then(response=>response.json())
-    .then(data=>{
-        if (!data.detail){
-          localStorage.setItem('access', data.access)
-          localStorage.setItem('refresh', data.refresh)
-          navigate('/')
-        }
+    fetchData('/token/', 'POST', {
+      username: username,
+      password: password
     })
   }
 
@@ -51,6 +49,16 @@ const LoginPage = () => {
                 <h2>Log in to account</h2>
                 <input required type="text" name="username" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/>
                 <input required type="password" name="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/>
+
+                {
+                  loginError ? (
+                    <p className='error-color'>
+                      {loginError}
+                    </p>
+                  ) : (
+                    <></>
+                  )
+                }
 
                 <div className='log-sign-in'>
                   <p>Don't have an account?</p>
