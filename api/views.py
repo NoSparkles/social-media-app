@@ -4,12 +4,24 @@ from rest_framework.generics import ListCreateAPIView, ListAPIView, RetrieveDest
 from rest_framework import status
 from rest_framework.serializers import ValidationError
 
+
 from . import models, serializers
 from .mixins import AuthenticationRequiredMixin
  
 @api_view(['GET', 'POST'])
 def index(request, *args, **kwargs):
-    return Response({"hello": "world"})
+    print(request.POST, kwargs, args, 1)
+    
+    return Response(1)
+
+class DebugView(APIView):
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        
+        
+        print("Request Data:", data)
+        return Response({"message": "Debug response"}, status=status.HTTP_200_OK)
+
 
 
 class PostListCreateAPIView(ListCreateAPIView):
@@ -18,9 +30,15 @@ class PostListCreateAPIView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         user = self.request.user
+        if isinstance(self.request, bytes):
+            self.request = self.request.decode('utf-8')
+        
+        
+        print("Request Data:", self.request.data)
         if user:
             serializer.save(user=user)
-        serializer.save()
+
+        
 
 
 class UserPostsListAPIView(ListAPIView):

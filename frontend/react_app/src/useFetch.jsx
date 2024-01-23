@@ -12,12 +12,18 @@ const useFetch = () => {
       method: method,
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken'),
       }
     }
     if (body){
-      options['body'] = JSON.stringify(body)
+      const formData = new FormData();
+
+      for (const key in body) {
+        if (body.hasOwnProperty(key)) {
+          formData.append(key, body[key]);
+        }
+      }
+      options['body'] = formData
     }
     if (localStorage.getItem('access') !== null){
       let token = localStorage.getItem('access')
