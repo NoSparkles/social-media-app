@@ -19,6 +19,9 @@ const RegisterPage = () => {
     if (!data) {
       return
     }
+    if (!response.ok && data.username || data.password) {
+      setRegisterError(data.username || data.password)
+    }
 
     if (response.status == 201) {
       fetchData('/token/', 'POST', {
@@ -39,7 +42,7 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if(password !== confirmPassword) {
-      setRegisterError('Passwords does not match')
+      setRegisterError('passwords does not match')
       return
     }
 

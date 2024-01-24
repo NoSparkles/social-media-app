@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+  font-family: 'Gill Sans',  sans-serif;
 }
 
 nav{
@@ -83,6 +83,8 @@ nav .create-post-button:hover {
   margin: auto;
   margin-top: 10vh;
   margin-bottom: 20px;
+  height: 86vh;
+  overflow: scroll;
 }
 
 .after-nav{
@@ -280,7 +282,7 @@ nav .create-post-button:hover {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 240px;
+  height: fit-content;
   position: relative;
   top: 25vh;
   width: 400px;
@@ -341,7 +343,7 @@ nav .create-post-button:hover {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 200px;
+  height: fit-content;
   position: relative;
   top: 25vh;
   width: 400px;

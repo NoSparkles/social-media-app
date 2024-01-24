@@ -45,14 +45,14 @@ const Post = ({item, userData}) => {
   }, [likePostData])
 
   return (
-    <div className="post">
+    <li className="post">
       <Link to={`/profile/${item.user}`}><p>@{item.username}</p></Link>
       <h3>{item.title}</h3>
       <img src={item.image || defaultPostImage} alt="photo" />
           <div className='likes-box'>
             <button onClick={userData ? likePost : ()=> alert("Log in to like the post")}><FontAwesomeIcon icon={liked ? solidHeart : regularHeart} /><p>{likes}</p></button>  
           </div>
-    </div>
+    </li>
   )
 }
 

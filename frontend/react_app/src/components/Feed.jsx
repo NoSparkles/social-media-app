@@ -4,7 +4,7 @@ import Post from './Post'
 
 const Feed = ({posts, userData}) => {
   return (
-    <div className="feed">
+    <ul className="feed">
       {
         posts ? (
           <>
@@ -19,7 +19,7 @@ const Feed = ({posts, userData}) => {
           </>       
         )
       }
-    </div>
+    </ul>
   )
 }
 

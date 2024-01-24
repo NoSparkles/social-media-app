@@ -19,7 +19,7 @@ const LoginPage = () => {
       return
     }
     if (response.status === 401) {
-      setLoginError(data.detail)
+      setLoginError("Username or password is incorrect")
     }
     if (response.ok) {
       localStorage.setItem('access', data.access)
@@ -50,15 +50,10 @@ const LoginPage = () => {
                 <input required type="text" name="username" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/>
                 <input required type="password" name="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-                {
-                  loginError ? (
-                    <p className='error-color'>
-                      {loginError}
-                    </p>
-                  ) : (
-                    <></>
-                  )
-                }
+                <p className='error-color'>
+                  {loginError || ""}
+                </p>
+                
 
                 <div className='log-sign-in'>
                   <p>Don't have an account?</p>
