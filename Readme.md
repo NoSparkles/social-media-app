@@ -1,7 +1,7 @@
 # Social media app
 
 ## Demo Video
-[Download demo.mp4](./demo.mp4)
+[demo.mp4](./demo.mp4)
 
 ## Backend setup
 ```
